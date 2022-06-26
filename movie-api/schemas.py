@@ -47,3 +47,10 @@ class Rating(RatingBase):
 
     class Config:
         orm_mode = True
+
+
+class ProductionMovieBudgetByYear(ProductionCompanyBase, MovieBase):
+    year: str
+    budget: float
+    production_id: str
+    production_company_name: str
