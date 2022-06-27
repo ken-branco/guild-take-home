@@ -1,5 +1,6 @@
+from .models import Movie, ProductionCompany, ProductionMovieLookup
 from sqlalchemy.orm import Session
-from . import models, schemas
+
 
 
 def get_movie(db: Session, movie_id: int):
@@ -10,14 +11,16 @@ def get_movie(db: Session, movie_id: int):
 #     return db.query(models.ProductionCompany).filter(models.ProductionCompany.id == production_id)
 
 def get_production_company_budget_by_year(db: Session, production_id: str, year: str):
-    for movie, production_company in db.query(models.ProductionMovieLookup).\
-             join(models.Movie).\
-             join(models.ProductionCompany).\
-             filter(models.Movie.id == models.ProductionMovieLookup.movie_id).\
-             filter(models.ProductionMovieLookup.production_id == models.ProductionCompany.id).\
-             filter(models.Movie.release_date.like(f"%{year}-")).\
-             filter(models.ProductionCompany.id == production_id).all():
+    budget = 0.0
+    for movie, _, production_company in db.query(Movie, ProductionMovieLookup, ProductionCompany, ).\
+            filter(ProductionMovieLookup.production_id == production_id).\
+            filter(ProductionCompany.id == ProductionMovieLookup.production_id).\
+            filter(Movie.id == ProductionMovieLookup.movie_id).\
+            filter(Movie.release_date.like(f"%{year}-%")).all():
+        budget += movie.budget
 
-        return year, production_company.id, production_company.name, sum(movie.budget)
+    company = production_company.name
+
+    return {"year": year, "budget": budget, "company": company}
 
 

@@ -49,8 +49,7 @@ class Rating(RatingBase):
         orm_mode = True
 
 
-class ProductionMovieBudgetByYear(ProductionCompanyBase, MovieBase):
+class ProductionMovieBudgetByYear(BaseModel):
     year: str
     budget: float
-    production_id: str
-    production_company_name: str
+    company: str
