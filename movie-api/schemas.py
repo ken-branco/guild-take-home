@@ -49,7 +49,14 @@ class Rating(RatingBase):
         orm_mode = True
 
 
+class PopularGenreByYear(BaseModel):
+    genre_name: str
+    total_revenue: float
+    average_rating: float
+
+
 class ProductionMovieBudgetByYear(BaseModel):
     year: str
-    budget: float
     company: str
+    budget: float
+    revenue: float
