@@ -2,11 +2,6 @@ from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy.orm import Session
 
 from . import crud, models, schemas
-# import uvicorn
-# import crud
-# import models
-# import schemas
-
 from .database import SessionLocal, engine
 
 models.Base.metadata.create_all(bind=engine)
@@ -41,7 +36,3 @@ def get_most_popular_genre_by_year(year: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404,
                             detail=f"No popular movie genres for year: {year}")
     return genre_data
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)

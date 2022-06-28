@@ -22,6 +22,9 @@ def get_production_company_budget_revenue_by_year(db: Session, production_id: st
         budget += movie.budget
         revenue += movie.revenue
 
+    if not production_company:
+        return {"year": year, "company": 'NOT FOUND', "budget": 0, "revenue": 0}
+
     company = production_company.name
 
     return {"year": year, "company": company, "budget": budget, "revenue": revenue}
@@ -36,6 +39,14 @@ def get_most_popular_genre_by_year(db: Session, year: str):
         filter(Movie.release_date.like(f"%{year}-%")).\
         group_by(Genre.name).\
         order_by(desc(sum(Movie.revenue)), desc(sum(Rating.rating))).first()
+
+    if not genre_data:
+        return {
+            "genre_name": "NOT FOUND",
+            "total_revenue": 0,
+            "average_rating": 0
+        }
+
     genre_name, total_revenue, total_ratings, rating_count, _ = genre_data
     average_rating = total_ratings / rating_count
     return {
