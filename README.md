@@ -3,7 +3,8 @@
 Requires Python 3.10+  
 
 ### ERD 
-![Moive API ERD](https://github.com/ken-branco/guild-take-home/blob/movie-api/data/movie-api-erd.pdf "Moview API ERD")  
+![Movie API ERD](https://github.com/ken-branco/guild-take-home/blob/movie-api/data/movie-api-erd.pdf "Moview API ERD")
+
 The ERD was implemented in an [SQLite3](https://www.sqlite.org/index.html) database.  
 THe database used by the API is in /data/movies.db  
 
