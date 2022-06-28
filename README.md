@@ -1,6 +1,7 @@
 ## Movie API
 
 Requires Python 3.10+  
+The `scratch.py` file shows how I used the [pandas](https://pandas.pydata.org/docs/index.html) library to copy the raw data into the SQLite tables.  
 
 ### ERD 
 ![Movie API ERD](https://github.com/ken-branco/guild-take-home/blob/master/data/movie-api-erd.pdf "Moview API ERD")
